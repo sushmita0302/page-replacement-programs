@@ -1,0 +1,56 @@
+from queue import Queue  
+
+frames = int(input("Enter the no of frames......."))  
+pages = []
+m = int(input("Enter the no. of page reference string elements....."))
+for j in range(0,m):
+  ele = int(input())
+  pages.append(ele)
+print("The Strings you have entered")
+print("\n")
+print(pages)
+
+n =len(pages)
+s = list()    
+indexes = Queue()  
+page_faults = 0
+hit = 0
+
+for i in range(n):    
+  if (len(s) < frames):   
+    if (pages[i] not in s): 
+      s.append(pages[i])                  
+      page_faults += 1
+      indexes.put(pages[i]) 
+      print("\n")
+      print(s)
+    else:
+      print("\n")
+      print("hit")
+      hit +=1  
+  else:   
+      if (pages[i] not in s):              
+        val = indexes.queue[0]  
+  
+        indexes.get()  
+  
+        s.remove(val)    
+        s.append(pages[i])    
+        indexes.put(pages[i]) 
+        print("\n") 
+        print(s)
+  
+        page_faults += 1
+      else:
+        print("\n")
+        print("hit")
+        hit +=1  
+
+
+print("\n")
+print("\n")
+print("The no of page faults.....",page_faults)
+hit_ratio = hit/m
+print("The hit ratio is.....",hit_ratio)
+miss_ratio = 1-hit_ratio
+print("The miss ratio is.....",miss_ratio)
